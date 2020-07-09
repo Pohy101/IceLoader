@@ -13,15 +13,13 @@ namespace Logger
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("] [");
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("IceLoader");
+            Console.Write("IceBurn");
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("] ");
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(message);
-            Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public static void LogError(string message)
+        public static void Log(ConsoleColor color, string message)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("[");
@@ -29,8 +27,25 @@ namespace Logger
             Console.Write(DateTime.Now.ToString("HH:mm:ss.fff"));
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("] [");
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.Write("IceLoader");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("IceBurn");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("] ");
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void Error(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("[");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(DateTime.Now.ToString("HH:mm:ss.fff"));
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("] [");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("IceBurn");
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("] ");
             Console.ForegroundColor = ConsoleColor.Red;
