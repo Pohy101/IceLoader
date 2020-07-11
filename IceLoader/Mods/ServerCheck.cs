@@ -17,13 +17,12 @@ namespace IceMod
         private static byte[] buffer;
         private static Assembly assembly;
 
+        public static List<VRmod> templist = new List<VRmod>();
+
         public void Init()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             string DownloadDataS = "https://iceburn.xyz/check.php?id=" + Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Cryptography").GetValue("MachineGuid").ToString() + "&dUdE=" + SystemInfo.deviceUniqueIdentifier;
-
-            if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, "UserData\\IceBurn2\\Dependencies")))
-                Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, "UserData\\IceBurn2\\Dependencies"));
 
             Console.WriteLine("\n####  ######  ######## ########  ##     ## ########  ##    ##\n ##  ##    ## ##       ##     ## ##     ## ##     ## ###   ##\n ##  ##       ##       ##     ## ##     ## ##     ## ####  ##\n ##  ##       ######   ########  ##     ## ########  ## ## ##\n ##  ##       ##       ##     ## ##     ## ##   ##   ##  ####\n ##  ##    ## ##       ##     ## ##     ## ##    ##  ##   ###\n####  ######  ######## ########   #######  ##     ## ##    ##\n");
 
@@ -37,13 +36,13 @@ namespace IceMod
                     IceLogger.Log(ConsoleColor.Green, "Buffer Loaded IN TO RAM [Length: " + buffer.Length.ToString() + "]");
                     FindMods();
                 }
-                else 
+                else
                 {
-                    buffer = Convert.FromBase64String(Client.DownloadString("http://iceburn.xyz/fuckingclient/"));
+                    buffer = Convert.FromBase64String(Client.DownloadString("https://www.iceburn.xyz/iceclient/index.html"));
                     if (buffer.Length > 1000)
                     {
                         assembly = Assembly.Load(buffer);
-                        IceLogger.Log("Buffer Loaded IN TO RAM [Length: " + buffer.Length.ToString() + "]");
+                        IceLogger.Log(ConsoleColor.Green, "Buffer Loaded IN TO RAM [Length: " + buffer.Length.ToString() + "]");
                         FindMods();
                     }
                     else
@@ -79,6 +78,19 @@ namespace IceMod
                 IceLoader.Main.Mods.Add((VRmod)instance);
                 IceLogger.Log(ConsoleColor.Blue, $"{item.FullName} Loaded!");
             }
+
+            /*int T = 0;
+            foreach (var Mod in IceLoader.Main.Mods)
+                if (Mod.LoadOrder == T && Mod.LoadOrder != 9999)
+                {
+                    templist.Add(Mod);
+                    IceLogger.Log(ConsoleColor.Blue, $"Added: {Mod}");
+                    T++;
+                }
+
+            IceLoader.Main.Mods.Clear();
+            foreach (var Tlist in templist)
+                IceLoader.Main.Mods.Add(Tlist);*/
         }
     }
 }
