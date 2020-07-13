@@ -7,6 +7,7 @@ using Il2CppSystem.IO;
 using UnityEngine;
 using Microsoft.Win32;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IceMod
 {
@@ -67,18 +68,32 @@ namespace IceMod
         {
             var result = new List<Type>();
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            //get all types that are children of vrmod
             foreach (var assembly in assemblies)
             {
                 var types = assembly.GetTypes();
                 foreach (var type in types)
                     if (type.IsSubclassOf(typeof(VRmod))) result.Add(type);
             }
+
+            //add all items from result list to Mods list that will be loaded
             foreach (var item in result)
             {
                 var instance = Activator.CreateInstance(item);
                 IceLoader.Main.Mods.Add((VRmod)instance);
-                IceLogger.Log(ConsoleColor.Blue, $"{item.FullName} Loaded!");
             }
+
+            //sort Mods by their LoadOrder property and add them again to load in correct order 
+            List<VRmod> sortedModList = IceLoader.Main.Mods.OrderBy(o => o.LoadOrder).ToList();
+            IceLoader.Main.Mods.Clear();
+            for (int i = 0; i < sortedModList.Count(); i++)
+            {
+                IceLoader.Main.Mods.Add(sortedModList[i]);
+                IceLogger.Log(ConsoleColor.Blue, $"{sortedModList[i]} Loaded!");
+            }
+
+            //IceLogger.Log(ConsoleColor.Blue, "ALL MODS LOADED DUPAAAAAAAAAAAA1: "+ result.Count);
         }
     }
 }
