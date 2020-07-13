@@ -1,10 +1,8 @@
-﻿using UnityEngine;
-
-namespace IceModSystem
+﻿namespace IceModSystem
 {
     public class VRmod
     {
-        public virtual int LoadOrder => 0;
+        public virtual int LoadOrder => 9999;
         public virtual void OnEarlierStart() { }
         public virtual void OnStart() { }
         public virtual void OnUpdate() { }
