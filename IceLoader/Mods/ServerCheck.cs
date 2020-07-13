@@ -90,7 +90,7 @@ namespace IceMod
             for (int i = 0; i < sortedModList.Count(); i++)
             {
                 IceLoader.Main.Mods.Add(sortedModList[i]);
-                IceLogger.Log(ConsoleColor.Blue, $"{sortedModList[i]} Loaded!");
+                IceLogger.Log(ConsoleColor.Blue, sortedModList[i] + " LoadOrder = " + "[" + i +"]" +" Loaded!");
             }
 
             //IceLogger.Log(ConsoleColor.Blue, "ALL MODS LOADED DUPAAAAAAAAAAAA1: "+ result.Count);
