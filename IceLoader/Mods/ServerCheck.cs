@@ -83,16 +83,14 @@ namespace IceMod
                 IceLoader.Main.Mods.Add((VRmod)instance);
             }
 
-            //sort Mods by their LoadOrder property and add them again to load in correct order 
-            List<VRmod> sortedModList = IceLoader.Main.Mods.OrderBy(o => o.LoadOrder).ToList();
+            //sort Mods by their LoadOrder property and add them again to load in correct order
+            List<VRmod> sortedModList = IceLoader.Main.Mods.OrderBy(owo => owo.LoadOrder).ToList();
             IceLoader.Main.Mods.Clear();
-            for (int i = 0; i < sortedModList.Count(); i++)
+            foreach (var mod in sortedModList)
             {
-                IceLoader.Main.Mods.Add(sortedModList[i]);
-                IceLogger.Log(ConsoleColor.Blue, sortedModList[i] + " LoadOrder = " + "[" + i +"]" +" Loaded!");
+                IceLoader.Main.Mods.Add(mod);
+                IceLogger.Log(ConsoleColor.Blue, $"{mod} Loaded!");
             }
-
-            //IceLogger.Log(ConsoleColor.Blue, "ALL MODS LOADED DUPAAAAAAAAAAAA1: "+ result.Count);
         }
     }
 }
